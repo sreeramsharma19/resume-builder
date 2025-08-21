@@ -4,15 +4,41 @@ import Preview from "../components/Preview"
 
 
 function UserForm() {
+  const [userInput,setUserInput] = React.useState({
+      personalData:{
+        name:'',
+        jobTitle:'',
+        location:'',
+        email:'',
+        phone:'',
+        github:'',
+        linkedin:'',
+        portfolio:''
+      },
+      educationData:{
+        course:'',
+        college:'',
+        university:'',
+        year:''
+      },
+      experience:{
+        jobRole:'',
+        comapny:'',
+        jobLocation:'',
+        duration:''
+      },
+      skills:[],
+      summary:''
+    })
   return (
     <>
       <div className='container'>
         <div className='row p-5'>
           <div className='col-lg-6'>
-            <Steps />
+            <Steps userInput={userInput} setUserInput={setUserInput}/>
           </div>
           <div className='col-lg-6'>
-            <Preview />
+            <Preview userInput={userInput}/>
           </div>
         </div>
 

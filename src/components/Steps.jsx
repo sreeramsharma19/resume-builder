@@ -10,38 +10,13 @@ import TextField from '@mui/material/TextField';
 const steps = ['Basic Informations', 'Contact Details', 'Education Details', 'Work Experience', 'Skills & Certifications', 'Review & Submit'];
 
 
-function Steps() {
+function Steps({userInput,setUserInput}) {
 
   const skillSuggestionArray = ['NODE JS','EXPRESS','MONGO DB','REACT JS','ANGULAR','HTML','CSS','BOOTSTRAP','TAILWIND']
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   // state for storing user input data
-  const [userInput,setUserInput] = React.useState({
-    personalData:{
-      name:'',
-      jobTitle:'',
-      location:'',
-      email:'',
-      phone:'',
-      github:'',
-      linkedin:'',
-      portfolio:''
-    },
-    educationData:{
-      course:'',
-      college:'',
-      university:'',
-      year:''
-    },
-    experience:{
-      jobRole:'',
-      comapny:'',
-      jobLocation:'',
-      duration:''
-    },
-    skills:[],
-    summary:''
-  })
+
   const userSkillRef = React.useRef()
 
 
