@@ -11,14 +11,15 @@ import Edit from './Edit'
 
 
 
-function Preview({userInput}) {
+function Preview({userInput,finish}) {
     console.log(userInput);
     
     return (
-        < >
+        <div className='d-flex flex-column'>
            { 
            userInput.personalData.name!=''&&
            <>
+                { finish && 
                 <Stack direction={'row'} sx={{ marginTop: '20px', justifyContent: 'flex-end' }}>
                     <Stack direction={'row'}>
                         <button className='btn fs-1' style={{ color: 'red' }}><BiSolidCartDownload /></button>
@@ -30,7 +31,7 @@ function Preview({userInput}) {
     
                         <Link to={'/resume'} className='btn fs-1'>Back</Link>
                     </Stack>
-                </Stack>
+                </Stack>}
                 <Box component="section" >
     
                     <Paper elevation={3} sx={{ my: 5, p: 2, textAlign: 'center' }}>
@@ -64,7 +65,7 @@ function Preview({userInput}) {
                 </Box>
            </>
             }
-        </>
+        </div>
     )
 }
 
