@@ -13,7 +13,7 @@ import { addResumeApi } from '../services/allApi';
 const steps = ['Basic Informations', 'Contact Details', 'Education Details', 'Work Experience', 'Skills & Certifications', 'Review & Submit'];
 
 
-function Steps({ userInput, setUserInput,setFinish}) {
+function Steps({ userInput, setUserInput, setFinish, setResumeId }) {
 
   const skillSuggestionArray = ['NODE JS', 'EXPRESS', 'MONGO DB', 'REACT JS', 'ANGULAR', 'HTML', 'CSS', 'BOOTSTRAP', 'TAILWIND']
   const [activeStep, setActiveStep] = React.useState(0);
@@ -121,7 +121,7 @@ function Steps({ userInput, setUserInput,setFinish}) {
           <h3>Work Experience</h3>
           <div className='d-flex row p-3'>
             <TextField id="standard-basic-role" label="Job or Internship" variant="standard" onChange={e => setUserInput({ ...userInput, experience: { ...userInput.experience, jobRole: e.target.value } })} value={userInput.experience.jobRole} />
-            <TextField id="standard-basic-company" label="Company Name" variant="standard" onChange={e => setUserInput({ ...userInput, experience: { ...userInput.experience, company: e.target.value } })} value={userInput.experience.comapny} />
+            <TextField id="standard-basic-company" label="Company Name" variant="standard" onChange={e => setUserInput({ ...userInput, experience: { ...userInput.experience, company: e.target.value } })} value={userInput.experience.company} />
             <TextField id="standard-basic-Company location" label="Location" variant="standard" onChange={e => setUserInput({ ...userInput, experience: { ...userInput.experience, jobLocation: e.target.value } })} value={userInput.experience.jobLocation} />
             <TextField id="standard-basic-Company duration" label="Duration" variant="standard" onChange={e => setUserInput({ ...userInput, experience: { ...userInput.experience, duration: e.target.value } })} value={userInput.experience.duration} />
 
@@ -165,7 +165,7 @@ function Steps({ userInput, setUserInput,setFinish}) {
           <h3>Professional Summary</h3>
           <div className='d-flex row p-3'>
 
-            <TextField id="standard-basic-name" label="Write a short summary of yourself" multiline rows={4} defaultValue={"Results-driven [Your Profession] with [X] years of experience in [Industry/Key Skills]. Proven track record in [Key Achievement or Responsibility]. Strong skills in [Relevant Skills]. Passionate about [Key Professional Goal or Value]. Seeking to leverage expertise in [Target Role/Industry] to drive success."} variant="standard" onChange={e => setUserInput({ ...userInput, summary: e.target.value })} value={userInput.summary} />
+            <TextField id="standard-basic-name" label="Write a short summary of yourself" multiline rows={4} defaultValue={"Results-driven [Your Profession] with [X] years of experience in [Industry/Key Skills]. Proven track record in [Key Achievement or Responsibility]. Strong skills in [Relevant Skills]. Passionate about [Key Professional Goal or Value]. Seeking to leverage expertise in [Target Role/Industry] to drive success."} variant="standard" onChange={e => setUserInput({ ...userInput, summary: e.target.value })}  />
 
 
           </div>
@@ -176,24 +176,25 @@ function Steps({ userInput, setUserInput,setFinish}) {
 
   }
   // addResume
-  const handleAddResume = async() => {
+  const handleAddResume = async () => {
     //  alert('API Called')
 
-    const {name , jobTitle , location} = userInput.personalData
-    if (name && jobTitle && location ){
-      try{
-          const result = await addResumeApi(userInput)
-          console.log(result);
-          swal('Success','Resume Added Successfully','success')
-          setFinish(true)
-          
-      }catch(err){
-              console.log(err);
-              setFinish(false)
-              swal('Error','Resume Added Failed','error')
-              
+    const { name, jobTitle, location } = userInput.personalData
+    if (name && jobTitle && location) {
+      try {
+        const result = await addResumeApi(userInput)
+        setResumeId(result?.data?.id)
+        console.log(result?.data?.id);
+        swal('Success', 'Resume Added Successfully', 'success')
+        setFinish(true)
+
+      } catch (err) {
+        console.log(err);
+        setFinish(false)
+        swal('Error', 'Resume Added Failed', 'error')
+
       }
-    }else{
+    } else {
       alert('Fill the form')
     }
   }
